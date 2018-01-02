@@ -37,15 +37,15 @@ class Queue extends Controller
 
     public function actionRabbitEnqueue()
     {
-        $rabbit = $this->getObject(RabbitMQ::class, ['rabbit']);
-        $res = yield $rabbit->set(json_encode(['name' => 'msf', 'type' => 'framework']));
+        $rabbit = $this->getObject(\App\Models\Queue::class);
+        $res = yield $rabbit->rabbitEnqueue();
         $this->outputJson($res);
     }
 
     public function actionRabbitDequeue()
     {
-        $rabbit = $this->getObject(RabbitMQ::class, ['rabbit']);
-        $res = yield $rabbit->get();
+        $rabbit = $this->getObject(\App\Models\Queue::class);
+        $res = yield $rabbit->rabbitDequeue();
         $this->outputJson($res);
     }
 
